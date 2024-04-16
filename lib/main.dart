@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-void runApp() {
-    
-       MaterialApp(
-        home: Scaffold(
-          body: Image.asset('quiz-logo.png'),
-        ),
-      );
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: //Image.asset('quiz-logo.png'),
+      ),
+    ),
+  );
 }
 
       @override

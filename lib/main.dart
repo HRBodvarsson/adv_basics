@@ -4,7 +4,7 @@ void main() {
   runApp(
     MaterialApp(
       home: Scaffold(
-        body: //Image.asset('quiz-logo.png'),
+        body: Image.asset('quiz-logo.png'),
       ),
     ),
   );

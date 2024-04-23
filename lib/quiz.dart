@@ -9,9 +9,7 @@ class Quiz extends StatefulWidget {
   const Quiz({super.key});
 
   @override
-  State<Quiz> createState() {
-    return _QuizState();
-  }
+  State<Quiz> createState() => _QuizState();
 }
 
 class _QuizState extends State<Quiz> {
@@ -26,6 +24,7 @@ class _QuizState extends State<Quiz> {
 
   void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
+    debugPrint('Current answers: $selectedAnswers');
 
     if (selectedAnswers.length == questions.length) {
       setState(() {
@@ -34,21 +33,49 @@ class _QuizState extends State<Quiz> {
     }
   }
 
-  @override
-  Widget build(context) {
-    Widget screenWidget = StartScreen(switchScreen);
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
+      activeScreen = 'questions-screen';
+    });
+  }
 
-    if (activeScreen == 'questions-screen') {
-      screenWidget = QuestionsScreen(
-        onSelectAnswer: chooseAnswer,
-      );
-    }
+  //  @override
+  // Widget build(BuildContext context) {
+  //   Widget screenWidget;
 
-    if (activeScreen == 'results-screen') {
-      screenWidget = ResultsScreen(
-        chosenAnswers: selectedAnswers,
-      );
-    }
+  //   switch (activeScreen) {
+  //     case 'questions-screen':
+  //       screenWidget = QuestionsScreen(onSelectAnswer: chooseAnswer);
+  //       break;
+  //     case 'results-screen':
+  //       // Pass the list of selected answers and the restartQuiz function to ResultsScreen
+  //       screenWidget = ResultsScreen(
+  //         chosenAnswers: _selectedAnswers,
+  //         restartQuiz: restartQuiz,
+  //       );
+  //       break;
+  //     default:
+  //       // The default case handles the 'start-screen'
+  //       screenWidget = StartScreen(switchScreen);
+  //   }
+    @override
+    Widget build(context) {
+      Widget screenWidget = StartScreen(switchScreen);
+
+      if (activeScreen == 'questions-screen') {
+        screenWidget = QuestionsScreen(
+          onSelectAnswer: chooseAnswer,
+        );
+      }
+
+      if (activeScreen == 'results-screen') {
+        screenWidget = ResultsScreen(
+          chosenAnswers: selectedAnswers, 
+          onRestart: restartQuiz,
+        );
+      }
+    
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -68,27 +95,3 @@ class _QuizState extends State<Quiz> {
     );
   }
 }
-/* 
-
-const startAlignment = Alignment.topLeft;
-const endAlignment = Alignment.bottomRight;
-
-  @override
-  Widget build(context) {
-    return container(
-       decoration: const BoxDecoration(gradient: LinearGradient(
-            colors: [
-              Color.fromARGB (255, 50, 14, 111),
-              Color.fromARGB (255, 81, 42, 147),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-       ),       
-      ),
-    );
-  }
- */
-
-
-    
-
